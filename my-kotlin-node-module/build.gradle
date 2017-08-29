@@ -1,0 +1,53 @@
+version '1.0-SNAPSHOT'
+
+buildscript {
+    ext.kotlin_version = '1.1.2-5'
+
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: 'kotlin2js'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+}
+
+compileKotlin2Js.kotlinOptions {
+    outputFile = 'node/my-kotlin-node-module.js'
+    moduleKind = 'commonjs'
+    metaInfo = true
+    sourceMap = true
+}
+
+build.doLast {
+    configurations.compile.each { File file ->
+        copy {
+            includeEmptyDirs = false
+
+            from zipTree(file.absolutePath)
+            into "${projectDir}/node"
+            include { fileTreeElement ->
+                def path = fileTreeElement.path
+                path.endsWith('.js') && (path.startsWith('META-INF/resources/') || !path.startsWith('META-INF/'))
+            }
+        }
+    }
+
+    copy {
+      from 'package.json'
+      into "${projectDir}/node"
+    }
+}
+
+clean.doLast {
+    file("${projectDir}/node").deleteDir()
+}

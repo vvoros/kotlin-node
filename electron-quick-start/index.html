@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+    <script type="text/javascript" src="script.js"></script>
+  </head>
+  <body>
+    <h1>Hello World!</h1>
+    <!-- All of the Node.js APIs are available in this renderer process. -->
+    We are using Node.js <script>document.write(process.versions.node)</script>,
+    Chromium <script>document.write(process.versions.chrome)</script>,
+    and Electron <script>document.write(process.versions.electron)</script>.
+
+    <h2>Kotlin JS</h2>
+    <p>
+      Single user object: <script>document.write(JSON.stringify(user, null, 2))</script>
+    </p>
+    <p>
+      User list in JSON: <script>document.write(worker.listUsers())</script>
+    </p>
+    <p>
+      Using npm os.platform() from Kotlin: <script>document.write(worker.platform())</script>
+    </p>
+  </body>
+
+  <script>
+    // You can also require other files to run in this process
+    require('./renderer.js')
+  </script>
+</html>

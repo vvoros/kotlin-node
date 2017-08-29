@@ -1,0 +1,6 @@
+{
+  "name": "my-kotlin-node-module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./my-kotlin-node-module"
+}
